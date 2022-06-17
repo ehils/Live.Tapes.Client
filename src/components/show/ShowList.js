@@ -2,10 +2,12 @@
 // search bar and filter at top of list page'
 // show links to show detail
 import React, {useEffect, useState} from 'react'
+import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { getUserShows, getAllShows } from './ShowManager'
 export const ShowList = () => {
+    const history = useHistory()
     const [ showList, setShowList] = useState([])
 
     const {userId} = useParams()
@@ -24,6 +26,18 @@ export const ShowList = () => {
     return(
         <>
         <body>
+        <div>
+            {userList
+                ? <button
+                onClick={() => {
+                    history.push({ pathname: "/shows/create" })
+                }}>Add Show</button>
+                : ""}
+                </div>
+                <div>
+                    {showList.length === 0 ? "You Have No Shows" : ""}
+                </div>
+            <div>
             {showList.map(show => { 
                 return <div className="showCard" key={show.id}>
                 <h4>{show.artist.name}</h4>
@@ -40,6 +54,7 @@ export const ShowList = () => {
 
                 )
             }
+            </div>
         </body>
         </>
     )

@@ -13,8 +13,16 @@ export const searchShowsBySongAndArtist = searchTerm => fetchIt(`${Settings.API}
 
 export const filterShowArtist = artistString => fetchIt(`${Settings.API}/shows?artist=${artistString}`)
 
-export const filterShowLocation = locationString => fetchIt(`${Settings.API}/shows?venue=${locationString}`)
+export const filterShowLocation = locationString => fetchIt(`${Settings.API}/shows?location=${locationString}`)
 
-export const filterShowVenue = venueString => fetchIt(`${Settings.API}/shows?location=${venueString}`)
+export const filterShowVenue = venueString => fetchIt(`${Settings.API}/shows?venue=${venueString}`)
+
+export const createShow = show => fetchIt(`${Settings.API}/shows`, "POST", show)
+
+export const addTrack = track => fetchIt(`${Settings.API}/tracks`, "POST", track)
+
+export const deleteTrack = track => fetchIt(`${Settings.API}/tracks/${track.id}`, "DELETE")
+
+export const deleteShow = show => fetchIt(`${Settings.API}/shows/${show.id}`, "DELETE")
 
 

@@ -7,10 +7,12 @@ export const NavBar = () => {
   return (
     <nav>
       <Link to="/">Home</Link>
+      <Link to="/search">Search</Link>
       {
         localStorage.getItem("auth_token") !== null ?
           <button onClick={() => {
             localStorage.removeItem("auth_token")
+            localStorage.removeItem("userId")
             history.push({ pathname: "/" })
           }}>
             Logout
