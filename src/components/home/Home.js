@@ -9,7 +9,7 @@ export const Home = () => {
     const [allPlaylists, setAllPlaylists] = useState([])
     const [myShows, setMyShows] = useState([])
     const [myPlaylists, setMyPlaylists] = useState([])
-    
+
 
     const currentUser = parseInt(localStorage.getItem('userId'))
     useEffect(
@@ -17,7 +17,7 @@ export const Home = () => {
             getAllShows()
                 .then(setAllShows).then(
                     getAllPlaylists()
-                .then(setAllPlaylists)
+                        .then(setAllPlaylists)
                 )
         }, []
     )
@@ -26,7 +26,7 @@ export const Home = () => {
             getUserShows(currentUser)
                 .then(setMyShows).then(
                     getUserPlaylists(currentUser)
-                .then(setMyPlaylists)
+                        .then(setMyPlaylists)
                 )
         }, [currentUser]
     )
@@ -46,11 +46,10 @@ export const Home = () => {
 
     return (
         <>
-            <h1>Hello User</h1>
             <h3><Link to={`/shows/`}>
-                    New Shows
-                </Link>
-                </h3>
+                New Shows
+            </Link>
+            </h3>
             <div className="allShows">{allShows.slice(0, 3).map(
                 show => {
                     return <div className="showCard" key={show.id}>
@@ -96,9 +95,9 @@ export const Home = () => {
             )}
             </div>
             <h3><Link to={`/shows/user/${currentUser}`}>
-                    Your Shows
-                </Link>
-                </h3>
+                Your Shows
+            </Link>
+            </h3>
             <div className="myShows">{myShows.length === 0 ? "you have not added any shows" : myShows.slice(0, 3).map(
                 show => {
                     return <div className="showCard" key={show.id}>
@@ -114,9 +113,9 @@ export const Home = () => {
             )}
             </div>
             <h3><Link to={`/playlists/user/${currentUser}`}>
-                    Your Playlists
-                </Link>
-                </h3>
+                Your Playlists
+            </Link>
+            </h3>
             <div className='myPlaylists'>{myPlaylists.length === 0 ? "You have no playlists" : myPlaylists.slice(0, 3).map(
                 playlist => {
                     return <div className="playlistCard" key={playlist.id}>

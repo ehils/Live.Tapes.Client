@@ -4,10 +4,12 @@ import "./NavBar.css"
 
 export const NavBar = () => {
   const history = useHistory()
+  const userId = parseInt(localStorage.getItem("userId"))
   return (
     <nav>
       <Link to="/">Home</Link>
       <Link to="/search">Search</Link>
+      <Link to={`/library/${userId}`}>Library</Link>
       {
         localStorage.getItem("auth_token") !== null ?
           <button onClick={() => {

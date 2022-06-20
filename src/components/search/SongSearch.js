@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { AddSong } from '../playlist/AddSong';
+import { getSinglePlaylist } from '../playlist/PlaylistManager';
 import { searchTracks } from './SearchManager';
 
-export const SongSearch = () => {
+export const SongSearch = ({setPlaylist}) => {
     const {playlistId} = useParams() 
-    
     const [searchState, setSearchState] = useState(
         {
             search_term: ""
@@ -44,6 +44,22 @@ export const SongSearch = () => {
     }
 
 
+
+    // useEffect(() => {
+        
+    //     if (playlistId) {
+    //         getSinglePlaylist(playlistId)
+    //             .then((r) => {
+    //                 let copy = r
+    //                 copy.tracks = r.tracks.map((track) => {
+    //                     return track.id
+    //                 })
+    //                 return copy
+    //             })
+    //             .then(setPlaylist)
+    //     }
+    // }, [])
+
     // from adds or removes to querystring
 
     return (
@@ -63,12 +79,7 @@ export const SongSearch = () => {
             {foundTracks?.map(
                 track => {
                     return <div key={track.id}><h3>{track.title}</h3>
-                        <button
-                            onClick={() => 
-                               
-                                {return <AddSong playlistId={playlistId} trackId={track.id}/>}
-                            }>
-                            Add To Playlist</button>
+                        <AddSong playlistId={playlistId} setPlaylist={setPlaylist} trackId={track.id} />
                         {track.artist?.name}<br></br>
                         {track.show?.date}<br></br>
                     </div>

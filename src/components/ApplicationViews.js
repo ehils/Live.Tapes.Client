@@ -10,6 +10,8 @@ import { CreatePlaylist } from "./playlist/CreatePlaylist"
 import { CreateShow } from "./show/CreateShow"
 import { AddTracks } from "./show/AddTracks"
 import { SongSearch } from "./search/SongSearch"
+import { Library } from "./library/Library"
+import { AddSong } from "./playlist/AddSong"
 
 export const ApplicationViews = () => {
     return <>
@@ -48,6 +50,12 @@ export const ApplicationViews = () => {
         </Route>
         <Route path="/shows/:showId(\d+)/addTracks">
             <AddTracks />
+        </Route>
+        <Route path="/playlists/:trackId(\d+)/addTracks">
+            <AddSong />
+        </Route>
+        <Route path="/library/:userId(\d+)">
+            <Library />
         </Route>
         
     </>

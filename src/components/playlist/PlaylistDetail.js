@@ -5,12 +5,15 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { MediaPlayer } from "../utils/MediaPlayer"
-import { getSinglePlaylist } from "./PlaylistManager"
+import { deletePlaylist, getSinglePlaylist } from "./PlaylistManager"
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { Search, SongSearch } from "../search/SongSearch";
+import { useHistory } from "react-router-dom";
 
 export const PlaylistDetail = () => {
+
+    const history = useHistory()
 
     const { playlistId } = useParams()
 
@@ -25,10 +28,31 @@ export const PlaylistDetail = () => {
         getSinglePlaylist(playlistId).then(setPlaylist)
 
     }, [])
+
+    const deletePlaylistForGood = (playlist) => {
+        deletePlaylist(playlist).then(() => history.push(`/playlists/user/${currentUser}`))
+    }
     return (
         <>
             <h1>{playlist?.name}</h1>
             <h3>By: {playlist.user?.username}</h3>
+            {userPlaylist
+                ? <div>
+                    <Popup trigger={<button>Settings</button>}
+                        position="right center">
+                        <div><Popup trigger={<button> add songs to playlist</button>}
+                            position="right center">
+                            <SongSearch setPlaylist={setPlaylist} playlistId={playlist?.id} />
+                        </Popup></div>
+                        <button
+                            onClick={() => {
+                                deletePlaylistForGood(playlist)
+                            }}>Delete Playlist</button>
+                    </Popup>
+                    <div>
+                    </div>
+                </div>
+                : ""}
 
             {"tracks" in playlist && playlist.tracks?.length > 0
                 ? <MediaPlayer currentPlaylist={playlist?.tracks} />
@@ -40,7 +64,7 @@ export const PlaylistDetail = () => {
             {userPlaylist
                 ? <Popup trigger={<button> add songs to playlist</button>}
                     position="right center">
-                    <SongSearch playlistId={playlist?.id} />
+                    <SongSearch setPlaylist={setPlaylist} playlistId={playlist?.id} />
                 </Popup>
                 : ""}
         </>

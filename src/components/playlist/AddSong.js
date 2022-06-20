@@ -3,40 +3,47 @@ import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { getSinglePlaylist, updatePlaylist } from './PlaylistManager';
 
-export const AddSong = ({ playlistId, trackId }) => {
-    // const { playlistId } = useParams()
-
-
-    const [playlistTracks, setPlaylistTracks] = useState([])
-    const [playlist, setPlaylist] = useState({})
-
+export const AddSong = ({ playlistId, setPlaylist, trackId }) => {
+    
+    const [playlist, setThisPlaylist] = useState({})
+    const history = useHistory()
     useEffect(() => {
-        debugger
-        if (playlistId) {
+        // let mounted = true
+        
             getSinglePlaylist(playlistId)
                 .then((r) => {
                     let copy = r
                     copy.tracks = r.tracks.map((track) => {
                         return track.id
                     })
-                        .then(setPlaylist(copy))
+                    return copy
                 })
-        }
+                .then(setThisPlaylist)
+        
+        // return () => mounted = false
     }, [])
 
     const songAdd = (trackId) => {
-
-        const copy = {...playlist}
-        copy.tracks?.concat(trackId)
+        debugger
+        const copy = { ...playlist }
+        copy.tracks.push(trackId)
         updatePlaylist(copy)
+            .then(() => {
+                getSinglePlaylist(playlistId)
+                    .then(setPlaylist)
+            })
     }
 
 
     return (
         <>
-            {playlistId ?
-                songAdd(trackId)
-                : window.alert("please select playlist")}
+            
+                <button
+                    onClick={() => {
+                        songAdd(trackId)
+                    }}>
+                    add to playlist
+                </button>
             {/* if in playlistAdd
                 then window alert, song added to playlist
                 if not

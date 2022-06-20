@@ -3,7 +3,11 @@ import { MediaPlayerControls } from '@cassette/player';
 import { PlayerContextProvider, playerContextFilter } from '@cassette/core';
 import '@cassette/player/dist/css/cassette-player.css'
 import { useParams } from "react-router-dom";
-export const MediaPlayer = ({ currentPlaylist }) => {
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import { PlaylistSelect } from "../playlist/PlaylistSelect";
+export const MediaPlayer = ({ currentPlaylist, editing }) => {
+  const editMode = editing ? true : false
   const playlist = currentPlaylist
   const { showId } = useParams()
   const showMode = showId ? true : false
@@ -13,7 +17,7 @@ export const MediaPlayer = ({ currentPlaylist }) => {
         {playlist.map((track, i) => {
           const isActiveTrack = activeTrackIndex === i;
           return (
-            <li key={track.title}>
+            <li key={track.id}>
               {isActiveTrack && !paused
                 // both conditions must be satisfied 
                 ? <button
@@ -27,7 +31,10 @@ export const MediaPlayer = ({ currentPlaylist }) => {
                 </button>}
               {track.title}
               {showMode
-                ? <button>add song to playlist</button>
+                ? <Popup trigger={<button> add song to playlist</button>}
+                  position="right center">
+                  <PlaylistSelect trackId={track.id}/>
+                </Popup>
                 : ""}
             </li>
           );
