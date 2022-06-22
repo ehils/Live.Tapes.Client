@@ -27,7 +27,7 @@ export const PlaylistDetail = () => {
     useEffect(() => {
         getSinglePlaylist(playlistId).then(setPlaylist)
 
-    }, [])
+    }, [playlistId])
 
     const deletePlaylistForGood = (playlist) => {
         deletePlaylist(playlist).then(() => history.push(`/playlists/user/${currentUser}`))
@@ -40,16 +40,42 @@ export const PlaylistDetail = () => {
                 ? <div>
                     <Popup trigger={<button>Settings</button>}
                         position="right center">
-                        <div><Popup trigger={<button> add songs to playlist</button>}
-                            position="right center">
-                            <SongSearch setPlaylist={setPlaylist} playlistId={playlist?.id} />
-                        </Popup></div>
+                        {/* <div>
+                            <Popup trigger={<button> add songs to playlist</button>}
+                                position="right center">
+                                <SongSearch setPlaylist={setPlaylist} playlistId={playlist?.id} />
+                            </Popup>
+                        </div> */}
+                        <button
+                            onClick={()=> {
+                                history.push(`/playlists/${playlist.id}/songSearch`)
+                            }}>Add Songs to Playlist</button>
                         <button
                             onClick={() => {
+                                history.push(`/playlists/edit/${playlist.id}`)
+                            }}>
+                            Edit Playlist
+                        </button>
+                        <button
+                            onClick={() => {
+                                window.alert('are you sure you want to delete?')
                                 deletePlaylistForGood(playlist)
                             }}>Delete Playlist</button>
                     </Popup>
                     <div>
+                        {/* {userPlaylist
+                            ? <Popup trigger={<button> add songs to playlist</button>}
+                                position="right center">
+                                <SongSearch setPlaylist={setPlaylist} playlistId={playlist?.id} />
+                            </Popup>
+                            : ""} */}
+                            {/* <SongSearch setPlaylist={setPlaylist} playlistId={playlist?.id} /> */}
+                            {userPlaylist 
+                            ? <button
+                            onClick={()=> {
+                                history.push(`/playlists/${playlist.id}/songSearch`)
+                            }}>Add Songs to Playlist</button>
+                        : ""}
                     </div>
                 </div>
                 : ""}
@@ -60,13 +86,6 @@ export const PlaylistDetail = () => {
             {playlist.tracks?.length > 0
                 ? ""
                 : "Playlist Has No Songs"}
-
-            {userPlaylist
-                ? <Popup trigger={<button> add songs to playlist</button>}
-                    position="right center">
-                    <SongSearch setPlaylist={setPlaylist} playlistId={playlist?.id} />
-                </Popup>
-                : ""}
         </>
     )
 }

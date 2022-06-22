@@ -14,10 +14,12 @@ export const MediaPlayer = ({ currentPlaylist, editing }) => {
   const PlaylistMenuSetup = ({ playlist, paused, activeTrackIndex, onTogglePause, onSelectTrackIndex }) => {
     return (
       <ol>
-        {playlist.map((track, i) => {
+        {showMode
+        ?
+        playlist.sort((a,b)=>a.trackNumber-b.trackNumber).map((track, i) => {
           const isActiveTrack = activeTrackIndex === i;
           return (
-            <li key={track.id}>
+            <li key={i}>
               {isActiveTrack && !paused
                 // both conditions must be satisfied 
                 ? <button
@@ -30,15 +32,35 @@ export const MediaPlayer = ({ currentPlaylist, editing }) => {
                 > Play Symbol
                 </button>}
               {track.title}
-              {showMode
-                ? <Popup trigger={<button> add song to playlist</button>}
+                <Popup trigger={<button> add song to playlist</button>}
                   position="right center">
                   <PlaylistSelect trackId={track.id}/>
                 </Popup>
-                : ""}
             </li>
           );
-        })}
+        })
+        : playlist.map((track, i) => {
+          
+          const isActiveTrack = activeTrackIndex === i;
+          return (
+            <li key={i}
+            >
+              {isActiveTrack && !paused
+                // both conditions must be satisfied 
+                ? <button
+                  onClick={() => onTogglePause(i)}>
+                  pause symbol
+                </button>
+                // either of the conditions must be false
+                : <button
+                  onClick={() => onSelectTrackIndex(i)}
+                > Play Symbol
+                </button>}
+              {track.title}
+            </li>
+          );
+        })
+        }
       </ol>
     );
   }
@@ -53,7 +75,7 @@ export const MediaPlayer = ({ currentPlaylist, editing }) => {
 
   return (
     <>
-      <body>
+      
         <h1>Media Player</h1>
         <PlayerContextProvider playlist={playlist}>
           <MediaPlayerControls
@@ -69,7 +91,7 @@ export const MediaPlayer = ({ currentPlaylist, editing }) => {
             <PlaylistMenu />
           </div>
         </PlayerContextProvider>
-      </body>
+      
     </>
   )
 }

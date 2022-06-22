@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-export const UploadSongs = ({ remove, addLocalTrack, tracksArray, obj, update }) => {
+export const UploadSongs = ({ show, remove, addLocalTrack, tracksArray, obj, update }) => {
     const [uploadedSong, setUploadedSong] = useState('')
     const checkUploadResult = (e, resultEvent) => {
         if (resultEvent.event === "success") {
@@ -25,24 +25,34 @@ export const UploadSongs = ({ remove, addLocalTrack, tracksArray, obj, update })
     }
     return (
         <>
-            <button variant="flat" id="uploadBtn" color="success" outline type="file" onClick={showWidget} >Add File</button>
+            <button variant="flat" id="uploadBtn" color="success" outline type="file"
+                onClick={(e) => {
+                    let copy = obj
+                    copy.trackNumber = (parseInt(show.tracks.length) + parseInt(tracksArray.length) + 1)
+                    update(copy)
+                    if (obj.title) {
+                        showWidget(e)
+                    } else {
+                        window.alert("Please fille out all title before upload")
+                    }
+                }
+                } >Add File</button>
             {tracksArray
                 ? tracksArray.map((obj) => {
                     return <div key={`track_${obj.trackNumber}`}>
-                        <p key={`track_${obj.trackNumber}`}>Track:{obj.trackNumber}Title:{obj.title}File:{obj.fileString}</p>
+                        <p key={`track_${obj.trackNumber}`}>Title:{obj.title}File:{obj.fileString}</p>
                         <button
-                        id={tracksArray.length}
-                        onClick={
-                            (e) => {
-                                remove(e.target.id)
-                            }}>delete</button>
+                            id={tracksArray.length}
+                            onClick={
+                                (e) => {
+                                    remove(e.target.id)
+                                }}>delete</button>
                     </div>
-                }) 
-                : " " }
+                })
+                : " "}
 
 
-                    </>
+        </>
     )
 }
 
-            

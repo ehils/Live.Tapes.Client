@@ -26,7 +26,7 @@ export const PlaylistSelect = ({trackId}) => {
                                 (p) => {
                                     return (
                                         <div key={`playlistId--${p.id}`} value={`${p.id}`}>
-                                            {`${p.name}`}<AddSong playlistId={p.id} setPlaylist={setPlaylist} trackId={trackId} />
+                                            {`${p.name}`}<AddSong playlist={p} trackId={trackId} />
                                         </div>
                                     )
                                 }

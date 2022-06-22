@@ -4,8 +4,9 @@ import { AddSong } from '../playlist/AddSong';
 import { getSinglePlaylist } from '../playlist/PlaylistManager';
 import { searchTracks } from './SearchManager';
 
-export const SongSearch = ({setPlaylist}) => {
+export const SongSearch = () => {
     const {playlistId} = useParams() 
+    const[playlist, setPlaylist] = useState({})
     const [searchState, setSearchState] = useState(
         {
             search_term: ""
@@ -45,20 +46,20 @@ export const SongSearch = ({setPlaylist}) => {
 
 
 
-    // useEffect(() => {
+    useEffect(() => {
         
-    //     if (playlistId) {
-    //         getSinglePlaylist(playlistId)
-    //             .then((r) => {
-    //                 let copy = r
-    //                 copy.tracks = r.tracks.map((track) => {
-    //                     return track.id
-    //                 })
-    //                 return copy
-    //             })
-    //             .then(setPlaylist)
-    //     }
-    // }, [])
+        if (playlistId) {
+            getSinglePlaylist(playlistId)
+                .then((r) => {
+                    let copy = r
+                    copy.tracks = r.tracks.map((track) => {
+                        return track.id
+                    })
+                    return copy
+                })
+                .then(setPlaylist)
+        }
+    }, [])
 
     // from adds or removes to querystring
 
@@ -79,7 +80,7 @@ export const SongSearch = ({setPlaylist}) => {
             {foundTracks?.map(
                 track => {
                     return <div key={track.id}><h3>{track.title}</h3>
-                        <AddSong playlistId={playlistId} setPlaylist={setPlaylist} trackId={track.id} />
+                        <AddSong playlist={playlist} setPlaylist={setPlaylist} trackId={track.id} />
                         {track.artist?.name}<br></br>
                         {track.show?.date}<br></br>
                     </div>

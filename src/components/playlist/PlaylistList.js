@@ -24,18 +24,18 @@ export const PlaylistList = () => {
 
         <body>
             <div>
-            {userList
-                ? <button
-                onClick={() => {
-                    history.push({ pathname: "/playlists/create" })
-                }}>
-                    CreatePlaylist
+                {userList
+                    ? <button
+                        onClick={() => {
+                            history.push({ pathname: "/playlists/create" })
+                        }}>
+                        CreatePlaylist
                     </button>
-                : ""}
-                </div>
-                <div>
-                    {playlistList.length === 0 ? "You Have No Playlists" : ""}
-                </div>
+                    : ""}
+            </div>
+            <div>
+                {playlistList.length === 0 ? "You Have No Playlists" : ""}
+            </div>
             <div>
                 {playlistList.map(playlist => {
                     return <div className="playlistCard" key={playlist.id}>

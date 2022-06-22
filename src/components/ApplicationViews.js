@@ -42,6 +42,9 @@ export const ApplicationViews = () => {
         <Route exact path="/playlists/create">
             <CreatePlaylist />
         </Route>
+        <Route exact path="/playlists/edit/:playlistId(\d+)">
+            <CreatePlaylist />
+        </Route>
         <Route exact path="/shows/create">
             <CreateShow />
         </Route>

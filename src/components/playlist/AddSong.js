@@ -3,35 +3,38 @@ import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { getSinglePlaylist, updatePlaylist } from './PlaylistManager';
 
-export const AddSong = ({ playlistId, setPlaylist, trackId }) => {
-    
-    const [playlist, setThisPlaylist] = useState({})
+export const AddSong = ({ playlist, trackId }) => {
+    const {showId} = useParams()
+    const showAdd = showId ? true : false
+    // const [playlist, setThisPlaylist] = useState({})
     const history = useHistory()
-    useEffect(() => {
-        // let mounted = true
+    // useEffect(() => {
+    //     // let mounted = true
         
-            getSinglePlaylist(playlistId)
-                .then((r) => {
-                    let copy = r
-                    copy.tracks = r.tracks.map((track) => {
-                        return track.id
-                    })
-                    return copy
-                })
-                .then(setThisPlaylist)
+    //         getSinglePlaylist(playlistId)
+    //             .then((r) => {
+                    
+    //                 let copy = r
+    //                 copy.tracks = r.tracks.map((track) => {
+    //                     return track.id
+    //                 })
+    //                 return copy
+    //             })
+    //             .then(setThisPlaylist)
         
-        // return () => mounted = false
-    }, [])
+    //     // return () => mounted = false
+    // }, [playlistId])
 
     const songAdd = (trackId) => {
         debugger
         const copy = { ...playlist }
         copy.tracks.push(trackId)
-        updatePlaylist(copy)
-            .then(() => {
-                getSinglePlaylist(playlistId)
-                    .then(setPlaylist)
-            })
+        // returning a prmoise, necessary for .then
+        return updatePlaylist(copy)
+            // .then(() => {
+            //     getSinglePlaylist(playlistId)
+            //         .then(setPlaylist)
+            // })
     }
 
 
@@ -40,7 +43,12 @@ export const AddSong = ({ playlistId, setPlaylist, trackId }) => {
             
                 <button
                     onClick={() => {
-                        songAdd(trackId)
+                        {showAdd
+                        ? songAdd(trackId)
+                        .then(()=>history.push(`/shows/${showId}`))
+                        : songAdd(trackId)
+                        .then(()=>history.push(`/playlists/${playlist.id}`))
+                    }
                     }}>
                     add to playlist
                 </button>

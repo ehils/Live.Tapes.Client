@@ -28,6 +28,7 @@ export const ShowDetail = () => {
     }, [])
 
     const deleteShowForGood = (show) => {
+        window.alert('are you sure you want to delete?')
         deleteShow(show).then(() => history.push(`/shows/user/${currentUser}`))
     }
 

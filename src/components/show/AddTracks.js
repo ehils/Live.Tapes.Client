@@ -6,9 +6,10 @@ import { getSingleShow, addTrack, deleteTrack } from "./ShowManager"
 
 export const AddTracks = () => {
     const history = useHistory()
-    const {showId} = useParams()
+    const { showId } = useParams()
     const [show, setShow] = useState({
     })
+    const [trackNum, setTrackNum] = useState(0)
     const [track, createTrack] = useState({
         showId: showId,
         title: "",
@@ -27,8 +28,13 @@ export const AddTracks = () => {
     const refresh = (showId) => {
         getSingleShow(showId).then(
             setShow
+
         )
     }
+
+    
+
+
 
     // const pageRefresh = () =>{
     //     useEffect(()=>{
@@ -71,11 +77,12 @@ export const AddTracks = () => {
             }
         )
         refresh(showId)
+        setTracksArray([])
 
     }
-    
 
-    
+
+
     const removeTrack = (track) => {
 
         const index = parseInt(track) - 1
@@ -94,9 +101,10 @@ export const AddTracks = () => {
                 ? show.tracks.map(
                     track => {
                         return <div>{track.trackNumber}. {track.title}<button
-                        onClick={() => {
-                            deleteTrackFromShow(track)
-                        }}>delete</button> </div>
+                            onClick={() => {
+                                window.alert('are you sure you want to delete?')
+                                deleteTrackFromShow(track)
+                            }}>delete</button> </div>
 
                     }
                 )
@@ -108,13 +116,13 @@ export const AddTracks = () => {
                     placeholder='add title to show'
                     value={track.title}
                     onChange={(e) => {
-                        const copy = { ...track}
+                        const copy = { ...track }
                         copy.title = e.target.value
                         createTrack(copy)
                     }}
                 />
             </fieldset>
-            <fieldset>
+            {/* <fieldset>
                 <label>Track Number</label>
                 <input type="number"
                     className='trackNumberInput'
@@ -127,18 +135,40 @@ export const AddTracks = () => {
 
                     }}
                 />
-            </fieldset>
+            </fieldset> */}
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="upload_song">Song File:</label>
-                    <UploadSongs remove={removeTrack} addLocalTrack={addTrackToArray} tracksArray={tracksArray}obj={track} update={createTrack} />
+                    <UploadSongs remove={removeTrack} show={show} addLocalTrack={addTrackToArray} tracksArray={tracksArray} obj={track} update={createTrack} />
                 </div>
             </fieldset>
             <button
-            onClick={(e)=>{
-                postTracks(e)
-                
-            }}>
+                onClick={(e) => {
+                    // tracksArray.tracks
+                    
+                    // tracksArray.forEach((t) => {
+
+                        //     if(t.url === null || t.url === undefined){
+                        //         window.alert("Please upload an audio file")
+                        //     } else {
+                        //         postTracks(e)
+                        //     }
+                        // })
+
+                        let nullUrl = tracksArray.find(
+                            (t) => {
+                                return t.url === null
+                            })
+
+                        if (tracksArray.length > 0 && nullUrl == undefined) {
+                            postTracks(e)
+
+                        }
+                        else {
+                            window.alert("Please upload an audio file")
+                        }
+
+                    }}>
                 UploadSongs
             </button>
         </>
