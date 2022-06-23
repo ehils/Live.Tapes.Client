@@ -10,6 +10,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { Search, SongSearch } from "../search/SongSearch";
 import { useHistory } from "react-router-dom";
+import { Col, Container, Row } from 'react-bootstrap';
 
 export const PlaylistDetail = () => {
 
@@ -34,54 +35,81 @@ export const PlaylistDetail = () => {
     }
     return (
         <>
-            <h1>{playlist?.name}</h1>
-            <h3>By: {playlist.user?.username}</h3>
+            <Container>
+                <Row>
+                    <h1>{playlist?.name}</h1>
+                    <h3>By: {playlist.user?.firstName} {playlist.user?.lastName}</h3>
+                </Row>
+            </Container>
+
             {userPlaylist
                 ? <div>
-                    <Popup trigger={<button>Settings</button>}
-                        position="right center">
-                        {/* <div>
+                    <Container>
+
+                        <Row>
+
+                            <Col>
+                                
+                                <Popup trigger={<button>Settings</button>}
+                                    position="right center">
+                                    {/* <div>
                             <Popup trigger={<button> add songs to playlist</button>}
                                 position="right center">
                                 <SongSearch setPlaylist={setPlaylist} playlistId={playlist?.id} />
                             </Popup>
                         </div> */}
-                        <button
-                            onClick={()=> {
-                                history.push(`/playlists/${playlist.id}/songSearch`)
-                            }}>Add Songs to Playlist</button>
-                        <button
-                            onClick={() => {
-                                history.push(`/playlists/edit/${playlist.id}`)
-                            }}>
-                            Edit Playlist
-                        </button>
-                        <button
-                            onClick={() => {
-                                window.alert('are you sure you want to delete?')
-                                deletePlaylistForGood(playlist)
-                            }}>Delete Playlist</button>
-                    </Popup>
-                    <div>
-                        {/* {userPlaylist
+                                    <Row>
+
+                                        <button
+                                            onClick={() => {
+                                                history.push(`/playlists/${playlist.id}/songSearch`)
+                                            }}>Add Songs to Playlist</button>
+                                    </Row>
+                                    <Row>
+                                        <button
+                                            onClick={() => {
+                                                history.push(`/playlists/edit/${playlist.id}`)
+                                            }}>
+                                            Edit Playlist
+                                        </button>
+                                    </Row>
+                                    <Row>
+                                        <button
+                                            onClick={() => {
+                                                window.alert('are you sure you want to delete?')
+                                                deletePlaylistForGood(playlist)
+                                            }}>Delete Playlist</button>
+                                    </Row>
+                                </Popup>
+                            </Col>
+
+                            <div>
+
+                                {userPlaylist
+                                    ? <Col><button
+                                        onClick={() => {
+                                            history.push(`/playlists/${playlist.id}/songSearch`)
+                                        }}>Add Songs to Playlist</button></Col>
+                                    : <Col>''</Col>
+                                }
+
+                                {/* {userPlaylist
                             ? <Popup trigger={<button> add songs to playlist</button>}
-                                position="right center">
-                                <SongSearch setPlaylist={setPlaylist} playlistId={playlist?.id} />
+                            position="right center">
+                            <SongSearch setPlaylist={setPlaylist} playlistId={playlist?.id} />
                             </Popup>
-                            : ""} */}
-                            {/* <SongSearch setPlaylist={setPlaylist} playlistId={playlist?.id} /> */}
-                            {userPlaylist 
-                            ? <button
-                            onClick={()=> {
-                                history.push(`/playlists/${playlist.id}/songSearch`)
-                            }}>Add Songs to Playlist</button>
-                        : ""}
-                    </div>
+                        : ""} */}
+                                {/* <SongSearch setPlaylist={setPlaylist} playlistId={playlist?.id} /> */}
+                            </div>
+                        </Row>
+                    </Container>
                 </div>
                 : ""}
 
             {"tracks" in playlist && playlist.tracks?.length > 0
-                ? <MediaPlayer currentPlaylist={playlist?.tracks} />
+                ? <Container>
+                    <MediaPlayer currentPlaylist={playlist?.tracks} />
+                </Container>
                 : ""}
             {playlist.tracks?.length > 0
                 ? ""

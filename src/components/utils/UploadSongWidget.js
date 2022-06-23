@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-
+import { Col, Container, Row, Card, Button } from 'react-bootstrap';
 export const UploadSongs = ({ show, remove, addLocalTrack, tracksArray, obj, update }) => {
-    const [uploadedSong, setUploadedSong] = useState('')
+    // const [uploadedSong, setUploadedSong] = useState('')
     const checkUploadResult = (e, resultEvent) => {
         if (resultEvent.event === "success") {
             const copy = { ...obj }
@@ -39,8 +39,9 @@ export const UploadSongs = ({ show, remove, addLocalTrack, tracksArray, obj, upd
                 } >Add File</button>
             {tracksArray
                 ? tracksArray.map((obj) => {
-                    return <div key={`track_${obj.trackNumber}`}>
-                        <p key={`track_${obj.trackNumber}`}>Title:{obj.title}File:{obj.fileString}</p>
+                    return <Row><div key={`track_${obj.trackNumber}`}>
+                        <Col key={`track_${obj.trackNumber}`}>Title:{obj.title}</Col>
+                        <Col>File:{obj.fileString}</Col>
                         <button
                             id={tracksArray.length}
                             onClick={
@@ -48,6 +49,7 @@ export const UploadSongs = ({ show, remove, addLocalTrack, tracksArray, obj, upd
                                     remove(e.target.id)
                                 }}>delete</button>
                     </div>
+                    </Row>
                 })
                 : " "}
 

@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom"
 import { useParams } from "react-router-dom"
 import { UploadSongs } from "../utils/UploadSongWidget"
 import { getSingleShow, addTrack, deleteTrack } from "./ShowManager"
-
+import { Col, Container, Form, Row } from 'react-bootstrap';
 export const AddTracks = () => {
     const history = useHistory()
     const { showId } = useParams()
@@ -97,19 +97,47 @@ export const AddTracks = () => {
     }
     return (
         <>
+        <Container>
+
+        
             {show.tracks?.length > 0
                 ? show.tracks.map(
                     track => {
-                        return <div>{track.trackNumber}. {track.title}<button
+                        return <Row><div>{track.trackNumber}. {track.title}<button
                             onClick={() => {
                                 window.alert('are you sure you want to delete?')
                                 deleteTrackFromShow(track)
-                            }}>delete</button> </div>
+                            }}>delete</button> </div></Row>
 
                     }
                 )
                 : ""}
-            <fieldset>
+            <Form>
+                <Form.Group>
+                    <Form.Label>
+                    Track Name
+                    </Form.Label>
+                    <Form.Control 
+                    type="title"
+                    className='titleInput'
+                    placeholder='add title to show'
+                    value={track.title}
+                    onChange={(e) => {
+                        const copy = { ...track }
+                        copy.title = e.target.value
+                        createTrack(copy)
+                    }}/>
+                </Form.Group>
+            </Form>
+            <Form>
+                <Form.Group>
+                    <Form.Label>
+                    Song Upload
+                    </Form.Label>
+                    <UploadSongs remove={removeTrack} show={show} addLocalTrack={addTrackToArray} tracksArray={tracksArray} obj={track} update={createTrack} />
+                </Form.Group>
+            </Form>
+            {/* <fieldset>
                 <label>Track Name</label>
                 <input type="title"
                     className='titleInput'
@@ -121,7 +149,7 @@ export const AddTracks = () => {
                         createTrack(copy)
                     }}
                 />
-            </fieldset>
+            </fieldset> */}
             {/* <fieldset>
                 <label>Track Number</label>
                 <input type="number"
@@ -136,12 +164,12 @@ export const AddTracks = () => {
                     }}
                 />
             </fieldset> */}
-            <fieldset>
+            {/* <fieldset>
                 <div className="form-group">
                     <label htmlFor="upload_song">Song File:</label>
                     <UploadSongs remove={removeTrack} show={show} addLocalTrack={addTrackToArray} tracksArray={tracksArray} obj={track} update={createTrack} />
                 </div>
-            </fieldset>
+            </fieldset> */}
             <button
                 onClick={(e) => {
                     // tracksArray.tracks
@@ -171,6 +199,7 @@ export const AddTracks = () => {
                     }}>
                 UploadSongs
             </button>
+            </Container>
         </>
     )
 }

@@ -9,6 +9,7 @@ import { MediaPlayer } from "../utils/MediaPlayer"
 import { deleteShow, getSingleShow } from "./ShowManager"
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import { Col, Container, Row } from 'react-bootstrap';
 
 export const ShowDetail = () => {
 
@@ -34,36 +35,42 @@ export const ShowDetail = () => {
 
     return (
         <>
-            <h1>Show Date: {show.date}</h1>
-            <h3>Artist: {show.artist?.name}</h3>
-            <h3>Location: {show.location?.location}</h3>
-            <h3>Venue: {show.venue?.venue}</h3>
+            <Container>
+                <h1>Show Date: {show.date}</h1>
+                <h3>Artist: {show.artist?.name}</h3>
+                <h3>Location: {show.location?.location}</h3>
+                <h3>Venue: {show.venue?.venue}</h3>
+            </Container>
             {userShow
-                    ? <div>
-                        <Popup trigger={<button>Settings</button>}
+                ? <Container>
+                    <div>
+                        <Popup width="100px" trigger={<button>Settings</button>}
                             position="right center">
-                                <button
+                            <button
                                 onClick={() => {
                                     history.push({ pathname: `/shows/${show.id}/addTracks` })
                                 }}>Add/Remove Tracks</button>
-                                <button
+                            <button
                                 onClick={() => {
                                     deleteShowForGood(show)
                                 }}>Delete Show</button>
                         </Popup>
                         <div>
                         </div>
-                    </div>
-                    : ""}
-            <div className="mediaPlayer">
-                {"tracks" in show && show.tracks?.length > 0
-                    ? <MediaPlayer currentPlaylist={show.tracks} />
-                    : ""}
-                {show.tracks?.length > 0
-                    ? ""
-                    : "Show Has No Songs"}
-                
-            </div>
+                </div>
+                </Container> 
+                : ""}
+<div className="mediaPlayer">
+    {"tracks" in show && show.tracks?.length > 0
+        ? <Container>
+            <MediaPlayer currentPlaylist={show.tracks} />
+        </Container>
+        : ""}
+    {show.tracks?.length > 0
+        ? ""
+        : "Show Has No Songs"}
+
+</div>
         </>
     )
 }

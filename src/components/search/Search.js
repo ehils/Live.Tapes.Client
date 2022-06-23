@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Form, Button, Card, Container } from 'react-bootstrap';
 import { getArtists, getLocations, getVenues, searchFilterShows } from './SearchManager';
 
 export const Search = () => {
@@ -38,15 +39,15 @@ export const Search = () => {
     //     //     setFoundShows
     //     // )}
     // }, [searchState])
-    useEffect (() => {
+    useEffect(() => {
         getArtists().then(setArtists)
-    },[])
-    useEffect (() => {
+    }, [])
+    useEffect(() => {
         getLocations().then(setLocations)
-    },[])
-    useEffect (() => {
-        getVenues().then(setVenues) 
-    },[])
+    }, [])
+    useEffect(() => {
+        getVenues().then(setVenues)
+    }, [])
     const changeSearchState = (event) => {
         // TODO: Complete the onChange function
         const newSearch = Object.assign({}, searchState)          // Create copy
@@ -80,7 +81,97 @@ export const Search = () => {
 
     return (
         <>
-            <fieldset>
+            <Container>
+
+
+                <Form size="sm">
+                    <Form.Group className="searchInput">
+                        <Form.Label htmlFor="search_term">Search Artist or Song</Form.Label>
+                        <Form.Control type="text"
+                            name="search_term"
+                            className='search_term'
+                            placeholder="Search Goes here..."
+                            value={searchState.search_term}
+                            onChange={changeSearchState} />
+                        <Form.Text>
+                            Search shows by artist or a tune you enjoy
+                        </Form.Text>
+                    </Form.Group>
+                    <Form.Group className="searchInput">
+                        <Form.Label htmlFor="search_term">Date</Form.Label>
+                        <Form.Control type="text"
+                            name="date"
+                            className='date'
+                            placeholder="Search By Date"
+                            value={searchState.date}
+                            onChange={changeSearchState} />
+                        <Form.Text>
+                            If you know the date, enter it here.
+                        </Form.Text>
+                    </Form.Group>
+                    <Form.Group className="searchInput">
+                        <Form.Label htmlFor="search_term">Search by Artist</Form.Label>
+                        <Form.Select
+                            name="artist"
+                            onChange={changeSearchState}
+                            defaultValue="0">
+                            <option value="0" hidden>Artist Select</option>
+                            {
+                                artists.map(
+                                    (artist) => {
+                                        return (
+                                            <option key={`artistId--${artist.id}`} value={`${artist.id}`}>
+                                                {`${artist.name}`}
+                                            </option>
+                                        )
+                                    }
+                                )
+                            }
+                        </Form.Select>
+                    </Form.Group>
+                    <Form.Group className="searchInput">
+                        <Form.Label htmlFor="search_term">Search by Location</Form.Label>
+                        <Form.Select
+                            name="location"
+                            onChange={changeSearchState}
+                            defaultValue="0">
+                            <option value="0" hidden>Location Select</option>
+                            {
+                                locations.map(
+                                    (location) => {
+                                        return (
+                                            <option key={`locationId--${location.id}`} value={`${location.id}`}>
+                                                {`${location.location}`}
+                                            </option>
+                                        )
+                                    }
+                                )
+                            }
+                        </Form.Select>
+                    </Form.Group>
+                    <Form.Group className="searchInput">
+                        <Form.Label htmlFor="search_term">Search by Venue</Form.Label>
+                        <Form.Select
+                            name="location"
+                            onChange={changeSearchState}
+                            defaultValue="0">
+                            <option value="0" hidden>Venue Select</option>
+                            {
+                                venues.map(
+                                    (venue) => {
+                                        return (
+                                            <option key={`venueId--${venue.id}`} value={`${venue.id}`}>
+                                                {`${venue.venue}`}
+                                            </option>
+                                        )
+                                    }
+                                )
+                            }
+                        </Form.Select>
+                    </Form.Group>
+                </Form>
+
+                {/* <fieldset>
                 <div>
                     <label htmlFor="search_term">Search Artist or Song</label>
                     <input
@@ -169,23 +260,38 @@ export const Search = () => {
                         }
                     </select>
                 </div>
-            </fieldset>
-            <button
-                onClick={() => {
-                    searchShows()
-                }}>
-                Search
-            </button>
-            {foundShows.length > 0
-                ? foundShows?.map(
-                    show => {
-                        return <div key={show.id}>
-                            <h2>{show.date}</h2>
-                            <p>{show.artist?.name}</p>
-                        </div>
-                    }
-                )
-                : "No results match your search criteria"}
+            </fieldset> */}
+                <Button
+                    onClick={() => {
+                        searchShows()
+                    }}>
+                    Search
+                </Button>
+            </Container>
+            <Container>
+                {foundShows.length > 0
+                    ? foundShows?.map(
+                        show => {
+                            return <Card>
+                                <Card.Body>
+                                    <Card.Title>
+                                        {show.date}
+                                    </Card.Title>
+                                    <Card.Text>
+                                        {show.artist.name}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        Uploaded By: {show.user.firstName} {show.user.lastName}
+                                    </Card.Text>
+                                    <Card.Link href={`/shows/${show.id}`}>
+                                        Listen
+                                    </Card.Link>
+                                </Card.Body>
+                            </Card>
+                        }
+                    )
+                    : "No results match your search criteria"}
+            </Container>
         </>
     )
 }

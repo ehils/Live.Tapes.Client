@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
-import { getUserPlaylists, getAllPlaylists } from './PlaylistManager'
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { getUserPlaylists, getAllPlaylists } from './PlaylistManager';
+import { Button, Col, Container, Row, Card } from 'react-bootstrap';
 export const PlaylistList = () => {
     const history = useHistory()
     const [playlistList, setPlaylistList] = useState([])
@@ -21,48 +22,54 @@ export const PlaylistList = () => {
     }, [])
 
     return (
+        <Container>
 
-        <body>
-            <div>
-                {userList
-                    ? <button
-                        onClick={() => {
-                            history.push({ pathname: "/playlists/create" })
-                        }}>
-                        CreatePlaylist
-                    </button>
-                    : ""}
-            </div>
-            <div>
-                {playlistList.length === 0 ? "You Have No Playlists" : ""}
-            </div>
-            <div>
-                {playlistList.map(playlist => {
-                    return <div className="playlistCard" key={playlist.id}>
-                        <h4>
-                            {playlist.name}
-                        </h4>
-                        <h4>By: {playlist.user.username}</h4>
-                        <h4>Featured Tracks:</h4>
-                        {playlist.tracks.slice(0, 3).map(
-                            track => {
-                                return <div className='playlist track'>
-                                    {track.title}
-                                </div>
-                            }
-                        )}
-                        <div className="playlistLink">
-                            <Link to={`/playlists/${playlist.id}`}>
-                                Listen
-                            </Link>
-                        </div>
-                    </div>
-                }
+            <body>
+                <div>
+                    {userList
+                        ? <Button
+                            onClick={() => {
+                                history.push({ pathname: "/playlists/create" })
+                            }}>
+                            CreatePlaylist
+                        </Button>
+                        : ""}
+                </div>
+                <div>
+                    {playlistList.length === 0 ? "You Have No Playlists" : ""}
+                </div>
+                <div>
+                    {playlistList.map(playlist => {
+                        return <Card>
+                            <Card.Body>
+                                <Card.Title>
+                                    {playlist.name}
+                                </Card.Title>
+                                <Card.Text>
+                                    Submitted By: {playlist.user.firstName} {playlist.user.lastName}
+                                </Card.Text>
+                                <Card.Text>
+                                    Featured Tracks:
+                                    {playlist.tracks.slice(0, 2).map(
+                                        track => {
+                                            return <div className='playlist track'>
+                                                {track.title}
+                                            </div>
+                                        }
+                                    )}
+                                </Card.Text>
+                                <Card.Link href={`/playlists/${playlist.id}`}>
+                                    Listen
+                                </Card.Link>
+                            </Card.Body>
+                        </Card>
+                    }
 
-                )
-                }
-            </div>
-        </body>
+                    )
+                    }
+                </div>
+            </body>
+        </Container>
 
     )
 }

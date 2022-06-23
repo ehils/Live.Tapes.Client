@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { createShow } from "./ShowManager";
 import { Hint } from 'react-autocomplete-hint';
 import { getArtists, getLocations, getVenues } from '../search/SearchManager';
+import { Col, Container, Form, Row, Button } from 'react-bootstrap';
 
 export const CreateShow = () => {
     const history = useHistory()
@@ -67,7 +68,81 @@ export const CreateShow = () => {
 
     return (
         <>
-            <form >
+            <Container>
+                <Form>
+                    <Form.Group>
+                        <Form.Label>Show Date:</Form.Label>
+                        <input type="date"
+                            className='dateInput'
+                            placeholder='add date to show'
+                            value={show.date}
+                            onChange={(e) => {
+                                const copy = { ...show }
+                                copy.date = e.target.value
+                                updateShow(copy)
+
+                            }}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Artist:</Form.Label>
+                        <Hint options={artists} allowTabFill>
+                            <input type="artist"
+                                className='artistInput'
+                                placeholder='add artist to show'
+                                value={artistText}
+                                onChange={(e) => {
+                                    setArtistText(e.target.value);
+                                    const copy = { ...show }
+                                    copy.artist = e.target.value
+                                    updateShow(copy)
+                                }}
+                            />
+                        </Hint>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Location:</Form.Label>
+                        <Hint options={locations} allowTabFill>
+                            <input type="location"
+                                className='locationInput'
+                                placeholder='add location to show'
+                                value={locationText}
+                                onChange={(e) => {
+                                    setLocationText(e.target.value);
+                                    const copy = { ...show }
+                                    copy.location = e.target.value
+                                    updateShow(copy)
+                                }}
+                            />
+                        </Hint>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Venue:</Form.Label>
+                        <Hint options={venues} allowTabFill>
+                            <input type="venue"
+                                className='venueInput'
+                                placeholder='add venue to show'
+                                value={venueText}
+                                onChange={(e) => {
+                                    setVenueText(e.target.value);
+                                    const copy = { ...show }
+                                    copy.venue = e.target.value
+                                    updateShow(copy)
+                                }}
+                            />
+                        </Hint>
+                    </Form.Group>
+                    <div className="submitButtonCreateNewShowForm">
+
+                        <Button onClick={(e) => {
+                            submitNewShow(e)
+                        }} className="submit-button">
+                            Submit
+                        </Button>
+                    </div>
+                </Form>
+            </Container>
+            {/* <form >
                 <fieldset>
                     <label>Show Date</label>
 
@@ -82,7 +157,7 @@ export const CreateShow = () => {
 
                         }}
                     />
-                </fieldset>
+                </fieldset> */}
                 {/* <fieldset>
                     <label>Artist</label>
 
@@ -99,7 +174,7 @@ export const CreateShow = () => {
                     />
 
                 </fieldset> */}
-                <fieldset>
+                {/* <fieldset>
                     <label>Artist</label>
                     <Hint options={artists} allowTabFill>
                         <input type="artist"
@@ -114,8 +189,8 @@ export const CreateShow = () => {
                             }}
                         />
                     </Hint>
-                </fieldset>
-                <fieldset>
+                </fieldset> */}
+                {/* <fieldset>
                     <label>Location</label>
                     <Hint options={locations} allowTabFill>
                         <input type="location"
@@ -130,8 +205,8 @@ export const CreateShow = () => {
                             }}
                         />
                     </Hint>
-                </fieldset>
-                <fieldset>
+                </fieldset> */}
+                {/* <fieldset>
                     <label>Venue</label>
                     <Hint options={venues} allowTabFill>
                         <input type="venue"
@@ -146,7 +221,7 @@ export const CreateShow = () => {
                             }}
                         />
                     </Hint>
-                </fieldset>
+                </fieldset> */}
                 {/* <fieldset>
                     <label>location</label>
                     <input type="location"
@@ -175,7 +250,7 @@ export const CreateShow = () => {
                         }}
                     />
                 </fieldset> */}
-                <div className="submitButtonCreateNewShowForm">
+                {/* <div className="submitButtonCreateNewShowForm">
 
                     <button onClick={(e) => {
                         submitNewShow(e)
@@ -183,7 +258,7 @@ export const CreateShow = () => {
                         Submit
                     </button>
                 </div>
-            </form>
+            </form> */}
         </>
     )
 }

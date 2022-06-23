@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { createPlaylist, getSinglePlaylist, updatePlaylist } from './PlaylistManager';
-
+import { Col, Container, Form, Row } from 'react-bootstrap';
 export const CreatePlaylist = () => {
     const { playlistId } = useParams()
 
@@ -78,7 +78,22 @@ export const CreatePlaylist = () => {
 
     return (
         <>
-            <fieldset>
+        <Container>
+            <Form>
+                <Form.Group>
+                    <Form.Label>Playlist Name:</Form.Label>
+                    <Form.Control 
+                    type="text"
+                    name="name"
+                    className='name'
+                    placeholder="Enter Playlist Name"
+                    value={playlist.name}
+                    onChange={changePlaylistName}
+                    />
+                </Form.Group>
+            </Form>
+        </Container>
+            {/* <fieldset>
                 <div>
                     <label htmlFor="searchTerm">Playlist Name:</label>
                     <input
@@ -90,10 +105,10 @@ export const CreatePlaylist = () => {
                         onChange={changePlaylistName}
                     />
                 </div>
-            </fieldset>
+            </fieldset> */}
             {playlist.tracks?.length > 0
-                ? <fieldset>
-                    <ul>
+                ?<Container>
+                   
                         {playlist?.tracks.map(track => {
                             // returns an element that is true or flase relative to the conditional
                             let foundTrack = playlistTracks.find(
@@ -104,21 +119,21 @@ export const CreatePlaylist = () => {
                             )
                             // if that track is found
                             if (foundTrack) {
-                                return <li key={`p${playlist.id}t${track.id}`}
+                                return <Row key={`p${playlist.id}t${track.id}`}
                                     value={parseInt(track.id)}>
-                                    {track.title}
-                                    <button
+                                    <Col>{track.title}</Col>
+                                    <Col><button
                                         value={parseInt(track.id)}
                                         onClick={(e) => {
                                             updateTrackList(e)
                                         }}
-                                    >delete</button>
-                                </li>
+                                    >delete</button></Col>
+                                </Row>
                             }
                         })}
-                    </ul>
-                </fieldset>
+                </Container>
                 : null}
+            <Container>
 
             <button
                 onClick={() => {
@@ -126,14 +141,15 @@ export const CreatePlaylist = () => {
                         window.alert("Please Enter Playlist Name")
                     } 
                     else {makePlaylist()
-                    history.push(`/playlists/${playlist.id}`)
-                }}}
-            >
+                        history.push(`/playlists/${playlist.id}`)
+                    }}}
+                    >
                 {editMode ? "Save Playlist" : "Create Playlist"}
             </button>
             <button onClick={()=>{
                 history.push(`/playlists/user/${currentUser}`)
             }}>Cancel</button>
+            </Container>
         </>
     )
 }
