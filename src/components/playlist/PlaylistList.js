@@ -25,16 +25,16 @@ export const PlaylistList = () => {
         <Container>
 
             <body>
-                <div>
+                <Container><div>
                     {userList
-                        ? <Button
+                        ? <button
                             onClick={() => {
                                 history.push({ pathname: "/playlists/create" })
                             }}>
                             CreatePlaylist
-                        </Button>
+                        </button>
                         : ""}
-                </div>
+                </div></Container>
                 <div>
                     {playlistList.length === 0 ? "You Have No Playlists" : ""}
                 </div>

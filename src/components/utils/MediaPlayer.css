@@ -1,3 +1,11 @@
 .popup-content {
     width: 500px;
 }
+.addSong {
+    align-items: right;
+}
+
+.playlisttracks {
+    display: flex;
+    justify-content: space-evenly;
+}

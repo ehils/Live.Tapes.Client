@@ -58,28 +58,28 @@ export const PlaylistDetail = () => {
                                 <SongSearch setPlaylist={setPlaylist} playlistId={playlist?.id} />
                             </Popup>
                         </div> */}
-                                    <Row>
+                                    
 
                                         <button
                                             onClick={() => {
                                                 history.push(`/playlists/${playlist.id}/songSearch`)
                                             }}>Add Songs to Playlist</button>
-                                    </Row>
-                                    <Row>
+                                    
+                                    
                                         <button
                                             onClick={() => {
                                                 history.push(`/playlists/edit/${playlist.id}`)
                                             }}>
                                             Edit Playlist
                                         </button>
-                                    </Row>
-                                    <Row>
+                                    
+                                    
                                         <button
                                             onClick={() => {
                                                 window.alert('are you sure you want to delete?')
                                                 deletePlaylistForGood(playlist)
                                             }}>Delete Playlist</button>
-                                    </Row>
+                                    
                                 </Popup>
                             </Col>
 
@@ -113,7 +113,10 @@ export const PlaylistDetail = () => {
                 : ""}
             {playlist.tracks?.length > 0
                 ? ""
-                : "Playlist Has No Songs"}
+                : <Container>
+                    Playlist Has No Songs
+                </Container>
+                }
         </>
     )
 }

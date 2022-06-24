@@ -1,0 +1,14 @@
+.navBar.navbar-expand-sm.navbar-light.sticky-top {
+    background: black 5px;
+    border-bottom: darkslategray 5px !important;
+
+}
+.nav-link {
+    color: darkslategray !important;
+}
+.logo {
+    font-family: 'Special Elite', cursive;
+}
+/* .navbar-toggler-icon {
+    background-color: darkslategray !important;
+} */

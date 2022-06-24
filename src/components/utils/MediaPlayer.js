@@ -15,22 +15,22 @@ export const MediaPlayer = ({ currentPlaylist, editing }) => {
   const showMode = showId ? true : false
   const PlaylistMenuSetup = ({ playlist, paused, activeTrackIndex, onTogglePause, onSelectTrackIndex }) => {
     return (
-      <Container>
-        <ol>
+      <Container className="playlistMenu">
+        <ol className="playlistTracks">
           {showMode
             ?
             playlist.sort((a, b) => a.trackNumber - b.trackNumber).map((track, i) => {
               const isActiveTrack = activeTrackIndex === i;
               return (
 
-                <li key={i}>
+                <li className="track" key={i}>
                   {isActiveTrack && !paused
                     // both conditions must be satisfied 
                     ?
                     
                       
                       <img src="https://cdn-icons-png.flaticon.com/512/16/16427.png" 
-                      width="30px" 
+                      width="25px" 
                       onClick={() => onTogglePause(i)}/>
                     
 
@@ -39,13 +39,13 @@ export const MediaPlayer = ({ currentPlaylist, editing }) => {
 
 
                     <img src="https://freepngimg.com/thumb/play_button/25623-4-play-button-transparent-background.png"
-                      width="30px"
+                      width="25px"
                       onClick={() => onSelectTrackIndex(i)}
                     />
 
                   }
                   {track.title}
-                  <Popup width="200px" trigger={<button> add song to playlist</button>}
+                  <Popup width="200px" trigger={<img src="../../imgs/plussymbol.png" width="30px" />}
                     position="right center">
                     <PlaylistSelect trackId={track.id} />
                   </Popup>
@@ -63,17 +63,18 @@ export const MediaPlayer = ({ currentPlaylist, editing }) => {
                   {isActiveTrack && !paused
                     // both conditions must be satisfied 
                     ?
-                    <button
-                      onClick={() => onTogglePause(i)}>
-                      pause symbol
-                    </button>
+                    
+                    <img src="https://cdn-icons-png.flaticon.com/512/16/16427.png" 
+                    width="25px" 
+                      onClick={() => onTogglePause(i)}
+                    />
 
                     // either of the conditions must be false
                     :
-                    <button
+                    <img src="https://freepngimg.com/thumb/play_button/25623-4-play-button-transparent-background.png"
+                      width="25px"
                       onClick={() => onSelectTrackIndex(i)}
-                    > Play Symbol
-                    </button>
+                    />
                   }
 
                   {track.title}
@@ -99,9 +100,7 @@ export const MediaPlayer = ({ currentPlaylist, editing }) => {
   return (
     <>
 
-      <Row>
-        <h1>Media Player</h1>
-      </Row>
+      
 
       <Row>
         <PlayerContextProvider playlist={playlist}>

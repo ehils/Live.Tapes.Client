@@ -1,0 +1,14 @@
+.card-body{
+    margin: 15px;
+    
+}
+.showCard.card {
+    border: none;
+
+}
+
+.container {
+    border-bottom: slategrey 20px;
+    margin-bottom: 30px;
+    font-family: 'Outfit', sans-serif;
+}

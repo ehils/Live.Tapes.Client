@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getAllShows, getUserShows } from '../show/ShowManager';
 import { getUserPlaylists, getAllPlaylists } from '../playlist/PlaylistManager'
 import { Col, Container, Row, Card } from 'react-bootstrap';
+import './Library.css'
 export const Library = () => {
     const [myShows, setMyShows] = useState([])
     const [myPlaylists, setMyPlaylists] = useState([])

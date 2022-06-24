@@ -6,34 +6,41 @@ import { AddSong } from './AddSong'
 import { getUserPlaylists, getAllPlaylists } from './PlaylistManager'
 import { Col, Container, Row } from 'react-bootstrap';
 
-export const PlaylistSelect = ({trackId}) => {
+export const PlaylistSelect = ({ trackId }) => {
     const currentUser = parseInt(localStorage.getItem('userId'))
     const [userPlaylists, setUserPlaylists] = useState([])
     const [playlist, setPlaylist] = useState({})
     useEffect(() => {
         getUserPlaylists(currentUser)
-                .then(setUserPlaylists)
-    },[currentUser])
+            .then(setUserPlaylists)
+    }, [currentUser])
 
 
-    return(
+    return (
         <>
-        <fieldset>
+            <fieldset>
                 <div className="form-group">
 
-                    
-                        {
-                            userPlaylists.map(
-                                (p) => {
-                                    return (
+
+                    {
+                        userPlaylists.map(
+                            (p) => {
+                                return (
+                                    <Row>
                                         <div key={`playlistId--${p.id}`} value={`${p.id}`}>
-                                            {`${p.name}`}<AddSong playlist={p} trackId={trackId} />
+                                            <Col>
+                                                {`${p.name}`}
+                                            </Col>
+                                            <Col>
+                                                <AddSong playlist={p} trackId={trackId} />
+                                            </Col>
                                         </div>
-                                    )
-                                }
-                            )
-                        }
-                    
+                                    </Row>
+                                )
+                            }
+                        )
+                    }
+
                 </div>
             </fieldset>
         </>

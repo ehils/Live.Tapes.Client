@@ -49,8 +49,8 @@ export const Home = () => {
         <>
             <Container>
                 <Row>
-                    <Col>
-                        <h3>
+                    <Col className="title">
+                        <h3 c>
                             <Link to={`/shows/`}>
                                 New Shows
                             </Link>
@@ -61,7 +61,7 @@ export const Home = () => {
                     {allShows.slice(0, 3).map(
                         show => {
                             return <Col className="showCard" key={show.id}>
-                                <Card>
+                                <Card className="showCard">
                                     <Card.Body>
                                         <Card.Title>
                                             {show.date}
@@ -91,7 +91,7 @@ export const Home = () => {
 
                 </Row>
                 <Row>
-                    <Col>
+                    <Col className="title">
                         <h3>
                             <Link to={`/playlists/`}>
                                 New Playlists
@@ -103,7 +103,7 @@ export const Home = () => {
                     {allPlaylists.slice(0, 3).map(
                         playlist => {
                             return <Col className="playlistCard" key={playlist.id}>
-                                <Card>
+                                <Card className="showCard">
                                     <Card.Body>
                                         <Card.Title>
                                             {playlist.name}
@@ -148,7 +148,7 @@ export const Home = () => {
                     )}
                 </Row>
                 <Row>
-                    <Col>
+                    <Col className="title">
                         <h3>
                             <Link to={`/shows/user/${currentUser}`}>
                                 Your Shows
@@ -160,7 +160,7 @@ export const Home = () => {
                     {myShows.length === 0 ? "you have not added any shows" : myShows.slice(0, 3).map(
                         show => {
                             return <Col className="showCard" key={show.id}>
-                                <Card>
+                                <Card className="showCard">
                                     <Card.Body>
                                     <Card.Title>
                                             {show.date}
@@ -186,7 +186,7 @@ export const Home = () => {
 
                 </Row>
                 <Row>
-                    <Col>
+                    <Col className="title">
                         <h3>
                             <Link to={`/playlists/user/${currentUser}`}>
                                 Your Playlists
@@ -198,7 +198,7 @@ export const Home = () => {
                     {myPlaylists.length === 0 ? "You have no playlists" : myPlaylists.slice(0, 3).map(
                         playlist => {
                             return <Col className="playlistCard" key={playlist.id}>
-                                <Card>
+                                <Card className="showCard">
                                     <Card.Body>
                                         <Card.Title>
                                             {playlist.name}

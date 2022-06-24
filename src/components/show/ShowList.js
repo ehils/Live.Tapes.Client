@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { getUserShows, getAllShows } from './ShowManager'
 import { Col, Container, Row, Card, Button } from 'react-bootstrap';
+import "./Shows.css"
 export const ShowList = () => {
     const history = useHistory()
     const [showList, setShowList] = useState([])
@@ -29,20 +30,20 @@ export const ShowList = () => {
             <Container>
 
                 <body>
-                    <div>
+                    <Container><div>
                         {userList
-                            ? <Button
+                            ? <button
                                 onClick={() => {
                                     history.push({ pathname: "/shows/create" })
-                                }}>Add Show</Button>
+                                }}>Add Show</button>
                             : ""}
-                    </div>
+                    </div></Container>
                     <div>
                         {showList.length === 0 ? "You Have No Shows" : ""}
                     </div>
                     <div>
                         {showList.map(show => {
-                            return <Card>
+                            return <Card className='showCard'>
                                 <Card.Body>
                                     <Card.Title>
                                         {show.date}

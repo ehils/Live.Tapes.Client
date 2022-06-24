@@ -35,14 +35,14 @@ export const ShowDetail = () => {
 
     return (
         <>
-            <Container>
+            <Container className='showInfo'>
                 <h1>Show Date: {show.date}</h1>
                 <h3>Artist: {show.artist?.name}</h3>
                 <h3>Location: {show.location?.location}</h3>
                 <h3>Venue: {show.venue?.venue}</h3>
             </Container>
             {userShow
-                ? <Container>
+                ? <Container className="showSettings">
                     <div>
                         <Popup width="100px" trigger={<button>Settings</button>}
                             position="right center">
@@ -68,7 +68,7 @@ export const ShowDetail = () => {
         : ""}
     {show.tracks?.length > 0
         ? ""
-        : "Show Has No Songs"}
+        : <Container>Show Has No Songs</Container>}
 
 </div>
         </>

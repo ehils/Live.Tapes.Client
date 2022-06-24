@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Card, Container } from 'react-bootstrap';
+import { Form, Button, Card, Container, Row } from 'react-bootstrap';
 import { getArtists, getLocations, getVenues, searchFilterShows } from './SearchManager';
 
 export const Search = () => {
@@ -17,6 +17,7 @@ export const Search = () => {
     const [artists, setArtists] = useState([])
     const [venues, setVenues] = useState([])
     const [locations, setLocations] = useState([])
+
 
     // useEffect(() => {
     //     let searchString = ""
@@ -86,7 +87,7 @@ export const Search = () => {
 
                 <Form size="sm">
                     <Form.Group className="searchInput">
-                        <Form.Label htmlFor="search_term">Search Artist or Song</Form.Label>
+                        <Form.Label htmlFor="search_term">Search Song</Form.Label>
                         <Form.Control type="text"
                             name="search_term"
                             className='search_term'
@@ -94,7 +95,7 @@ export const Search = () => {
                             value={searchState.search_term}
                             onChange={changeSearchState} />
                         <Form.Text>
-                            Search shows by artist or a tune you enjoy
+                            Search shows by a tune you enjoy
                         </Form.Text>
                     </Form.Group>
                     <Form.Group className="searchInput">
@@ -261,12 +262,13 @@ export const Search = () => {
                     </select>
                 </div>
             </fieldset> */}
-                <Button
+                <button
                     onClick={() => {
                         searchShows()
                     }}>
                     Search
-                </Button>
+                </button>
+
             </Container>
             <Container>
                 {foundShows.length > 0

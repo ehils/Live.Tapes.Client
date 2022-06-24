@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Container, Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { AddSong } from '../playlist/AddSong';
 import { getSinglePlaylist } from '../playlist/PlaylistManager';
@@ -65,25 +66,41 @@ export const SongSearch = () => {
 
     return (
         <>
-            <fieldset>
+            <Container><fieldset>
                 <div>
-                    <label htmlFor="search_term">Search Artist or Song</label>
+                    <Form>
+                        <Form.Group>
+
+                        <Form.Label>
+                        Search Song
+                        </Form.Label>
+                        <Form.Control
+                        type="text"
+                        name="search_term"
+                        className='search_term'
+                        placeholder="Song"
+                        value={searchState.search_term}
+                        onChange={changeSearchState} />
+
+                        </Form.Group>
+                    </Form>
+                    {/* <label htmlFor="search_term"></label>
                     <input
                         type="text"
                         name="search_term"
                         className='search_term'
-                        placeholder="Artist or Song"
+                        placeholder="Song"
                         value={searchState.search_term}
-                        onChange={changeSearchState} />
+                        onChange={changeSearchState} /> */}
                 </div>
             </fieldset>
+                </Container>
             {foundTracks?.map(
                 track => {
-                    return <div key={track.id}><h3>{track.title}</h3>
-                        <AddSong playlist={playlist} setPlaylist={setPlaylist} trackId={track.id} />
-                        {track.artist?.name}<br></br>
+                    return <Container><div key={track.id}><h3>{track.title}</h3>
                         {track.show?.date}<br></br>
-                    </div>
+                        <AddSong playlist={playlist} setPlaylist={setPlaylist} trackId={track.id} /><br></br>
+                    </div></Container>
 
                 }
             )}

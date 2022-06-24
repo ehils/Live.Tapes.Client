@@ -1,6 +1,6 @@
 import React from "react"
-import { Navbar, Nav } from "react-bootstrap"
-import NavbarToggle from "react-bootstrap/esm/NavbarToggle"
+import { Navbar, Nav, Container } from "react-bootstrap"
+
 import { Link, useHistory } from "react-router-dom"
 import "./NavBar.css"
 
@@ -9,9 +9,10 @@ export const NavBar = () => {
   const userId = parseInt(localStorage.getItem("userId"))
   return (
     <div className={"navBar"}>
-      <Navbar sticky="top" expand="sm" collapseOnSelect={"true"}>
+      <Navbar sticky="top" bg="flat"  expand="sm" collapseOnSelect={"true"}>
+        <Container>
         <Navbar.Brand className="logo">
-        <img src="../../imgs/cassette_icon.jpeg" width="50px" height="40px" />
+        <img src="../../imgs/cassettenobakcground.png" width="50px" height="45px" />
         Live.Tapes
         </Navbar.Brand>
         <Navbar.Toggle />
@@ -38,6 +39,7 @@ export const NavBar = () => {
             }
           </Nav>
         </Navbar.Collapse>
+        </Container>
       </Navbar>
     </div>
   )

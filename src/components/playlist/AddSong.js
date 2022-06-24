@@ -27,7 +27,7 @@ export const AddSong = ({ playlist, trackId }) => {
     // }, [playlistId])
 
     const songAdd = (trackId) => {
-        debugger
+        
         const copy = { ...playlist }
         copy.tracks.push(trackId)
         // returning a prmoise, necessary for .then
@@ -44,7 +44,7 @@ export const AddSong = ({ playlist, trackId }) => {
 
 
             
-                <img src='../../imgs/add.png' width="30px"
+                <button  width="30px"
                     onClick={() => {
                         {
                             showAdd
@@ -53,7 +53,8 @@ export const AddSong = ({ playlist, trackId }) => {
                                 : songAdd(trackId)
                                     .then(() => history.push(`/playlists/${playlist.id}`))
                         }
-                    }} />
+                    }} >Add</button>
+                    
             
 
             {/* if in playlistAdd

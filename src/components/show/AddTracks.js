@@ -103,11 +103,14 @@ export const AddTracks = () => {
             {show.tracks?.length > 0
                 ? show.tracks.map(
                     track => {
-                        return <Row><div>{track.trackNumber}. {track.title}<button
-                            onClick={() => {
+                        return <Row><div>{track.trackNumber}. {track.title}
+                        <img
+                        src="https://cdn4.iconfinder.com/data/icons/miu/24/circle-minus-plus-outline-stroke-512.png"
+                            width = '20px'    
+                        onClick={() => {
                                 window.alert('are you sure you want to delete?')
                                 deleteTrackFromShow(track)
-                            }}>delete</button> </div></Row>
+                            }}/> </div></Row>
 
                     }
                 )
