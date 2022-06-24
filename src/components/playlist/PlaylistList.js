@@ -24,7 +24,7 @@ export const PlaylistList = () => {
     return (
         <Container>
 
-            <body>
+            
                 <Container><div>
                     {userList
                         ? <button
@@ -35,12 +35,12 @@ export const PlaylistList = () => {
                         </button>
                         : ""}
                 </div></Container>
-                <div>
+                
                     {playlistList.length === 0 ? "You Have No Playlists" : ""}
-                </div>
+                
                 <div>
                     {playlistList.map(playlist => {
-                        return <Card>
+                        return <Card className='playlistCard'>
                             <Card.Body>
                                 <Card.Title>
                                     {playlist.name}
@@ -52,9 +52,9 @@ export const PlaylistList = () => {
                                     Featured Tracks:
                                     {playlist.tracks.slice(0, 2).map(
                                         track => {
-                                            return <div className='playlist track'>
+                                            return <Row className='playlist track'>
                                                 {track.title}
-                                            </div>
+                                            </Row>
                                         }
                                     )}
                                 </Card.Text>
@@ -68,7 +68,7 @@ export const PlaylistList = () => {
                     )
                     }
                 </div>
-            </body>
+           
         </Container>
 
     )

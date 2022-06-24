@@ -58,14 +58,6 @@ export const PlaylistDetail = () => {
                                 <SongSearch setPlaylist={setPlaylist} playlistId={playlist?.id} />
                             </Popup>
                         </div> */}
-                                    
-
-                                        <button
-                                            onClick={() => {
-                                                history.push(`/playlists/${playlist.id}/songSearch`)
-                                            }}>Add Songs to Playlist</button>
-                                    
-                                    
                                         <button
                                             onClick={() => {
                                                 history.push(`/playlists/edit/${playlist.id}`)

@@ -9,3 +9,6 @@
     display: flex;
     justify-content: space-evenly;
 }
+.cassette__control_bar {
+    background-color: lightslategray;
+}

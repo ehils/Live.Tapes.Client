@@ -101,7 +101,7 @@ export const AddTracks = () => {
 
         
             {show.tracks?.length > 0
-                ? show.tracks.map(
+                ? show.tracks.sort((a, b) => a.trackNumber - b.trackNumber).map(
                     track => {
                         return <Row><div>{track.trackNumber}. {track.title}
                         <img
@@ -202,6 +202,9 @@ export const AddTracks = () => {
                     }}>
                 UploadSongs
             </button>
+            <button onClick={()=>{
+                history.push(`/shows/${showId}`)
+            }}>Back to Show</button>
             </Container>
         </>
     )

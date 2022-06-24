@@ -10,6 +10,7 @@ export const PlaylistSelect = ({ trackId }) => {
     const currentUser = parseInt(localStorage.getItem('userId'))
     const [userPlaylists, setUserPlaylists] = useState([])
     const [playlist, setPlaylist] = useState({})
+    const { history } = useHistory()
     useEffect(() => {
         getUserPlaylists(currentUser)
             .then(setUserPlaylists)
@@ -18,31 +19,31 @@ export const PlaylistSelect = ({ trackId }) => {
 
     return (
         <>
-            <fieldset>
-                <div className="form-group">
+        
+                
 
 
-                    {
-                        userPlaylists.map(
+                    {userPlaylists.map(
                             (p) => {
                                 return (
-                                    <Row>
-                                        <div key={`playlistId--${p.id}`} value={`${p.id}`}>
-                                            <Col>
+                                    <Container key={`playlistId--${p.id}`} value={`${p.id}`}>
+                                        <Row>
+                                            <Col className="playlistSelect">
                                                 {`${p.name}`}
                                             </Col>
-                                            <Col>
+                                            <Col className="playlistSelect">
                                                 <AddSong playlist={p} trackId={trackId} />
                                             </Col>
-                                        </div>
-                                    </Row>
+                                        </Row>
+                                    </Container>
                                 )
                             }
                         )
+                        
                     }
 
-                </div>
-            </fieldset>
+                
+            
         </>
     )
 }

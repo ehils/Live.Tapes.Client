@@ -132,14 +132,14 @@ export const CreateShow = () => {
                             />
                         </Hint>
                     </Form.Group>
-                    <div className="submitButtonCreateNewShowForm">
+                    
 
-                        <Button onClick={(e) => {
+                        <button onClick={(e) => {
                             submitNewShow(e)
                         }} className="submit-button">
                             Submit
-                        </Button>
-                    </div>
+                        </button>
+                    
                 </Form>
             </Container>
             {/* <form >

@@ -4,11 +4,28 @@
 }
 .showCard.card {
     border: none;
-
+    margin-bottom: 20px;
 }
 
 .container {
     border-bottom: slategrey 20px;
     margin-bottom: 30px;
     font-family: 'Outfit', sans-serif;
+}
+body {
+    background-color: slategray;
+}
+
+.artistInput {
+    background-color: #fafafa;
+}
+.dateInput {
+    background-color: #fafafa;
+}
+.locationInput {
+    background-color: #fafafa;
+}
+.venueInput {
+    background-color: #fafafa;
+    margin-bottom: 10px;
 }

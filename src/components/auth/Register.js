@@ -25,6 +25,7 @@ export const Register = () => {
     registerUser(newUser).then(res => {
       if ("token" in res) {
         localStorage.setItem("auth_token", res.token)
+        localStorage.setItem("userId", res.userId)
         history.push("/")
       }
     })
@@ -91,6 +92,7 @@ export const Register = () => {
               <button type="submit">Register</button>
             </fieldset>
           </form> */}
+            <button type="submit">Register</button>
             </Form>
         </Row>
         <Row>

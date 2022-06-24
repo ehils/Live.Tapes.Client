@@ -6,3 +6,14 @@ button{
     font-family: 'Outfit', sans-serif;
     
 }
+.playlist.track.row {
+    background-color: #fafafa;
+   }
+
+.playlistCard.card {
+    margin-bottom: 20px;
+}
+.playlistSelect.col {
+    background-color: #fafafa !important;
+}
+

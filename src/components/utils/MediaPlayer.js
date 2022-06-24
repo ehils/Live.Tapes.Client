@@ -23,15 +23,15 @@ export const MediaPlayer = ({ currentPlaylist, editing }) => {
               const isActiveTrack = activeTrackIndex === i;
               return (
 
-                <li className="track" key={i}>
+                <Container><li className="track" key={i}>
                   {isActiveTrack && !paused
                     // both conditions must be satisfied 
                     ?
                     
                       
-                      <img src="https://cdn-icons-png.flaticon.com/512/16/16427.png" 
+                      <Col><img src="https://cdn-icons-png.flaticon.com/512/16/16427.png" 
                       width="25px" 
-                      onClick={() => onTogglePause(i)}/>
+                      onClick={() => onTogglePause(i)}/></Col>
                     
 
                     // either of the conditions must be false
@@ -50,7 +50,7 @@ export const MediaPlayer = ({ currentPlaylist, editing }) => {
                     <PlaylistSelect trackId={track.id} />
                   </Popup>
 
-                </li>
+                </li></Container>
 
               );
             })

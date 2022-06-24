@@ -115,9 +115,9 @@ export const Home = () => {
                                             Featured Tracks:
                                             {playlist.tracks.slice(0, 2).map(
                                                 track => {
-                                                    return <div className='playlist track'>
+                                                    return <Row className='playlist track'>
                                                         {track.title}
-                                                    </div>
+                                                    </Row>
                                                 }
                                             )}
                                         </Card.Text>
@@ -206,9 +206,9 @@ export const Home = () => {
                                         <Card.Text>
                                             Featured Tracks: {playlist.tracks.slice(0, 2).map(
                                                 track => {
-                                                    return <div className='playlist track'>
+                                                    return <Row className='playlist track'>
                                                         {track.title}
-                                                    </div>
+                                                    </Row>
                                                 }
                                             )}
                                         </Card.Text>

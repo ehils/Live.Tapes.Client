@@ -29,7 +29,7 @@ export const ShowList = () => {
         <>
             <Container>
 
-                <body>
+                
                     <Container><div>
                         {userList
                             ? <button
@@ -65,7 +65,7 @@ export const ShowList = () => {
                         )
                         }
                     </div>
-                </body>
+                
             </Container>
         </>
     )
